@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>购物车</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <div id="app" v-cloak>
+		<template v-if="list.length">
+			<table>
+				<thead>
+					<tr>
+						<th></th>
+						<th>商品图片</th>
+						<th>商品名称</th>
+						<th>商品单价</th>
+						<th>购买数量</th>
+						<th>操作</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr  v-for="(item, index) in list">
+						<td>{{index + 1}}</td>
+						<td><img v-bind:src="'img/'+item.img" class="img"></td>
+						<td>{{item.name}}</td>
+						<td>{{item.price}}</td>
+						<td>
+							<button type="button" @click="handleReduce(index)">-</button>&nbsp;&nbsp;&nbsp;&nbsp;{{item.count}}&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" @click="handleAdd(index)">+</button>
+						</td>
+						<td><button type="button" @click="handleRemove(index)">移除</button></td>
+					</tr>
+				</tbody>
+			</table>
+			<div>总价：￥{{totalPrice}}</div>
+		</template>
+		<div v-else>购物车为空</div>
+	</div>
+	<script>
+		var xmlhttp;
+        if (window.XMLHttpRequest)
+          {// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+          }
+        else
+          {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+        xmlhttp.open("GET", "http://127.0.0.1:8895/cart", false);
+        xmlhttp.send();
+		var responseObj;
+		let responseStr = xmlhttp.responseText;
+		responseObj = JSON.parse(responseStr);
+		var app = new Vue({
+			el: '#app',
+			data:{
+				list: responseObj.data,
+			},
+			computed:{
+				totalPrice: function(){
+					var total = 0;
+					for (var i = 0; i < this.list.length; i++){
+						var item = this.list[i];
+						total += item.price * item.count;
+					}
+					return total.toString().replace(/\B(?=(\d{3})+$)/g,',');
+				}
+			},
+			methods:{
+				handleReduce: function(index){
+					if (this.list[index].count === 1) return;
+					this.list[index].count--;
+				},
+				handleAdd: function(index){
+					this.list[index].count++;
+				},
+				handleRemove: function(index){
+					this.list.splice(index, 1);
+				}
+			}
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Index</title>
+    <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+</head>
+<body>
+    <script>    // 应对所有现代浏览器
+        var xmlhttp;
+        if (window.XMLHttpRequest)
+          {// code for IE7+, Firefox, Chrome, Opera, Safari
+          xmlhttp=new XMLHttpRequest();
+          }
+        else
+          {// code for IE6, IE5
+          xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+          }
+    </script>
+    <h1 align="middle">电子商务登陆网站</h1>
+    <p align="middle">用户：<input type="text" id="user"></p>
+    <p align="middle">密码：<input type="password" id="password"></p>
+    <p align="middle"><button onclick="login()">login</button><button onclick="register()">register</button></p>
+
+    <script>
+        function login() {
+            let UID = document.getElementById("user").value;
+            let PWD = document.getElementById("password").value;
+            xmlhttp.open("POST", "http://127.0.0.1:8895/login", true);
+            let info = {
+                "user": UID,
+                "password": PWD
+            }
+            xmlhttp.send(JSON.stringify(info));
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    let responseStr = xmlhttp.responseText;
+                    let responseObj = JSON.parse(responseStr);
+                    window.alert(responseObj.tip);
+                }
+            }
+        }
+        function register() {
+            let UID = document.getElementById("user").value;
+            let PWD = document.getElementById("password").value;
+            xmlhttp.open("POST", "http://127.0.0.1:8895/register", true);
+            let info = {
+                "user": UID,
+                "password": PWD
+            }
+            xmlhttp.send(JSON.stringify(info));
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
+                    let responseStr = xmlhttp.responseText;
+                    let responseObj = JSON.parse(responseStr);
+                    window.alert(responseObj.tip);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
