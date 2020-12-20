@@ -30,7 +30,7 @@
 						<td>{{item.name}}</td>
 						<td>{{item.price}}</td>
 						<td>
-							<button type="button" @click="handleReduce(index)" v-if="modify">-</button>&nbsp;&nbsp;{{item.count}}&nbsp;&nbsp;<button type="button" @click="handleAdd(index)" v-if="modify">+</button>
+							<button type="button" @click="handleReduce(index)" v-if="modify" class="add-reduce">-</button>&nbsp;&nbsp;{{item.count}}&nbsp;&nbsp;<button class="add-reduce" type="button" @click="handleAdd(index)" v-if="modify">+</button>
 						</td>
 						<td v-if="modify"><button type="button" @click="handleRemove(index)">移除</button></td>
 					</tr>
