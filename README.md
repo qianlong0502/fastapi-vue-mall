@@ -2,6 +2,7 @@
 - 数据库采用MySQL
 - 编程语言采用python， 后端框架采用最新的fastapi
 - 前端采用html5、javascript、Ajax、vue.js
+- [github地址](https://github.com/qianlong0502/fastapi-vue-mall)
 ## 环境要求
 - python3.7+
 - 所需第三方库均在requirements.txt中，运行前在项目路径下命令行中执行以下语句已安装所需第三方库
