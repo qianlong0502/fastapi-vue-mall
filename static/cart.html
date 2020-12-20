@@ -82,14 +82,14 @@
 					if (this.list[index].count === 1) return;
 					this.list[index].count--;
 					let res = {};
-					res.id = this.list[index];
+					res.id = this.list[index].id;
 					xmlhttp.open("POST", "http://127.0.0.1:8895/cart/reduce", false)
 					xmlhttp.send(JSON.stringify(res))
 				},
 				handleAdd: function(index){
 					this.list[index].count++;
 					let res = {};
-					res.id = this.list[index];
+					res.id = this.list[index].id;
 					xmlhttp.open("POST", "http://127.0.0.1:8895/cart/add", false)
 					xmlhttp.send(JSON.stringify(res))
 				},
