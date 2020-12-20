@@ -2,8 +2,9 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title>登陆</title>
     <script src="https://cdn.staticfile.org/jquery/1.10.2/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
     <script>    // 应对所有现代浏览器
@@ -17,7 +18,9 @@
           xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
           }
     </script>
-    <h1 align="middle">电子商务登陆网站</h1>
+    <div class="checkout-title">
+		<span>商城登陆</span>
+	</div>
     <p align="middle">用户：<input type="text" id="user"></p>
     <p align="middle">密码：<input type="password" id="password"></p>
     <p align="middle"><button onclick="login()">login</button><button onclick="register()">register</button></p>
@@ -36,7 +39,12 @@
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
                     let responseStr = xmlhttp.responseText;
                     let responseObj = JSON.parse(responseStr);
-                    window.alert(responseObj.tip);
+                    if (responseObj.error == 1) {
+                        window.alert(responseObj.tip);
+                        window.location.href = 'merchandise.html';
+                    }
+                    else
+                        window.alert('登陆失败，请确认用户名和密码后重新登陆');
                 }
             }
         }
@@ -53,7 +61,12 @@
                 if (xmlhttp.readyState == 4 && xmlhttp.status == 200){
                     let responseStr = xmlhttp.responseText;
                     let responseObj = JSON.parse(responseStr);
-                    window.alert(responseObj.tip);
+                    if (responseObj.error == 1){
+                        window.alert("注册成功，请登陆")
+                        window.location.href="merchandise.html"
+                    }
+                    else
+                        window.alert(responseObj.tip)
                 }
             }
         }
